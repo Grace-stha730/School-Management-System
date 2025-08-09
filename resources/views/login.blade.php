@@ -171,20 +171,7 @@
         <div>
            <div class="main">
             <div class="info">
-                <h1>Welcome to Sikhi SMS</h1>
-                <p>SMS assists all the members of Sikhi to do a variety of academic
-                     and co-curricular tasks with well-designed dashboards packed with gorgeous and in-depth modules.
-                     Making this school paperless is our key objective. Enjoy your journey with Sikhi.
-                </p>
-                <div class="bottom">
-                    <div class="image-container">
-                        <img src="{{asset('sikhi/sikhi1.jpeg')}}" alt="Sikhi Image 1">
-                        <img src="{{asset('sikhi/sikhi2.jpg')}}" alt="Sikhi Image 2">
-                    </div>
-                    <div class="join">
-                        <p>More than 12k students joined us, it's your turn</p>
-                    </div>
-                </div>
+                <h1>Welcome to SMS</h1>
             </div>
             <div class="signin">
                 <h5 class="text-danger">
@@ -215,7 +202,6 @@
                     <button type="submit" class="button">Sign in</button>
                     <span id="loader"></span>
                 </form>
-                <p>Web App Version: 2.1.88</p>
             </div>
            </div>
         </div>

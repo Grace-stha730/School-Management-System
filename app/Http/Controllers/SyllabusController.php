@@ -34,13 +34,13 @@ class SyllabusController extends Controller
     {
         $course_id = $request->query('course_id', 0);
         $syllabusRepository = new SyllabusRepository();
-        $syllabi = $syllabusRepository->getByCourse($course_id);
+        $syllabus = $syllabusRepository->getByCourse($course_id);
 
         $data = [
-            'syllabi'   => $syllabi
+            'syllabus'   => $syllabus
         ];
 
-        return view('syllabi.show', $data);
+        return view('syllabus.show', $data);
     }
 
     /**
@@ -58,7 +58,7 @@ class SyllabusController extends Controller
             'current_school_session_id' => $current_school_session_id,
             'school_classes'    => $school_classes,
         ];
-        return view('syllabi.create', $data);
+        return view('syllabus.create', $data);
     }
 
     /**

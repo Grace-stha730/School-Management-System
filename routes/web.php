@@ -32,6 +32,7 @@ use App\Http\Controllers\UserController;
         Route::get('register',[AuthController::class,'register'])->name('register');
         Route::post('/login',[AuthController::class,'process'])->name('login.process');
     });
+    
     Route::group(['middleware'=>'auth'],function(){
         Route::get('/home',[HomeController::class,'index'])->name('dashboard');
         Route::get('/logout',[AuthController::class,'logout'])->name('logout');
@@ -82,7 +83,7 @@ use App\Http\Controllers\UserController;
         Route::get('/teachers/{id}', [UserController::class, 'editTeacher'])->name('teacher.edit');
         Route::post('teacher/update', [UserController::class, 'updateTeacher'])->name('teacher.update');
 
-        //student 
+        //student
         Route::get('/students/add', [UserController::class, 'createStudent'])->name('student.create');
         Route::post('student/store', [UserController::class, 'storeStudent'])->name('student.store');
         Route::get('/students', [UserController::class, 'getStudentList'])->name('student.list');

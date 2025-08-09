@@ -69,7 +69,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-journal-text"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Syllabus</span></a>
                     </li> --}}
-                    <li class="nav-item border-bottom">
+                    {{-- <li class="nav-item border-bottom">
                         @php
                             if (session()->has('browse_session_id')){
                                 $class_info = \App\Models\Promotion::where('session_id', session('browse_session_id'))->where('student_id', Auth::user()->id)->first();
@@ -86,7 +86,7 @@
                             'class_id'  => $class_info->class_id,
                             'section_id'=> $class_info->section_id
                         ])}}"><i class="bi bi-calendar4-range"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Routine</span></a>
-                    </li>
+                    </li> --}}
                     @endif
                     @if(Auth::user()->role != "student")
                     <li class="nav-item border-bottom">
@@ -119,9 +119,6 @@
                         <a class="nav-link {{ request()->is('notice*')? 'active' : '' }}" href="{{ route('notice.create') }}"><i class="bi bi-megaphone"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Notice</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('calendar-event*')? 'active' : '' }}" href="{{ route('events.list') }}"><i class="bi bi-calendar-event"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Event</span></a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {{ request()->is('syllabus*')? 'active' : '' }}" href="{{ route('syllabus.create') }}"><i class="bi bi-journal-text"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Syllabus</span></a>
                     </li>
                     <li class="nav-item border-bottom">
@@ -131,22 +128,6 @@
                     @if (Auth::user()->role == "admin")
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('academics*')? 'active' : '' }}" href="{{ route('academic.setting') }}"><i class="bi bi-tools"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Academic</span></a>
-                    </li>
-                    @endif
-                    @if (!session()->has('browse_session_id') && Auth::user()->role == "admin")
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('promotions*')? 'active' : '' }}" href="{{ route('promotions.list') }}"><i class="bi bi-sort-numeric-up-alt"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Promotion</span></a>
-                    </li>
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" aria-disabled="true"><i class="bi bi-currency-exchange"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Payment</span></a>
-                    </li>
-                    @if (Auth::user()->role == "admin")
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" aria-disabled="true"><i class="bi bi-person-lines-fill"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Staff</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" aria-disabled="true"><i class="bi bi-journals"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Library</span></a>
                     </li>
                     @endif
                 </ul>

@@ -102,11 +102,11 @@ class PermissionSeeder extends Seeder
 
         $user = \App\Models\User::create([
             'email' => 'admin@gmail.com',
-            'first_name' => 'Rahat',
-            'last_name' => 'Hossain',
+            'first_name' => 'pema',
+            'last_name' => 'lama',
             'password'=>Hash::make('admin'),
             'gender'=>'male',
-            'nationality'=>"Bangladeshi",
+            'nationality'=>"nepali",
             'phone'=>'01771519627',
             'address'=>'ptk',
             'city'=>'ptk',

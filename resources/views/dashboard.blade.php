@@ -84,14 +84,12 @@
                     <div class="row align-items-md-stretch mt-4">
                         <div class="col">
                             <div class="p-3 text-white bg-dark rounded-3">
-                                <h3>Welcome to Sikhi!</h3>
-                                <p><i class="bi bi-emoji-heart-eyes"></i> Thanks for your love and support.</p>
+                                <h3>Welcome!</h3>
                             </div>
                         </div>
                         <div class="col">
                             <div class="p-3 bg-white border rounded-3" style="height: 100%;">
                                 <h3>Manage school better</h3>
-                                <p class="text-end">with <i class="bi bi-lightning"></i> <a href="" style="text-decoration: none;">Sikhi</a> <i class="bi bi-lightning"></i>.</p>
                             </div>
                         </div>
                     </div>
