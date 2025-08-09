@@ -1,4 +1,4 @@
-<div class="col-xs-1 col-sm-1 col-md-1 col-lg-2 col-xl-2 col-xxl-2 border-rt-e6 px-0">
+<div class="col-xs-1 col-sm-1 col-md-1 col-lg-2 col-xl-2 col-xxl-2 border-rt-e6 px-0 fixed-sidebar">
     <div class="d-flex flex-column align-items-center align-items-sm-start ">
                 <ul class="nav flex-column pt-2 w-100">
                     <li class="nav-item">
@@ -126,8 +126,45 @@
                     </li>
                     @endif
                     @if (Auth::user()->role == "admin")
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('academics*')? 'active' : '' }}" href="{{ route('academic.setting') }}"><i class="bi bi-tools"></i> <span class="ms-1 d-inline d-sm-none d-md-none d-xl-inline">Academic</span></a>
+                    <li class="nav-item border-bottom">
+                        <a type="button" href="#academic-submenu" data-bs-toggle="collapse" class="d-flex nav-link {{ request()->is('academics*')? 'active' : '' }}"><i class="bi bi-tools"></i> <span class="ms-2 d-inline d-sm-none d-md-none d-xl-inline">Academic</span>
+                            <i class="ms-auto d-inline d-sm-none d-md-none d-xl-inline bi bi-chevron-down"></i>
+                        </a>
+                        <ul class="nav collapse {{ request()->is('academics*')? 'show' : 'hide' }} bg-white" id="academic-submenu">
+                            <li class="nav-item w-100"><a class="nav-link" href="{{ route('academic.setting') }}"><i class="bi bi-gear me-2"></i> Academic Settings</a></li>
+                            <li class="nav-item w-100">
+                                <a class="nav-link" href="#session-browse-submenu" data-bs-toggle="collapse"><i class="bi bi-calendar-range me-2"></i> Browse Sessions <i class="bi bi-chevron-down ms-auto"></i></a>
+                                <ul class="nav collapse bg-light" id="session-browse-submenu" style="padding-left: 20px;">
+                                    @php
+                                        $school_sessions = \App\Models\SchoolSession::orderBy('id', 'desc')->get();
+                                        $current_session = session()->has('browse_session_id') ? 
+                                            \App\Models\SchoolSession::find(session('browse_session_id')) : 
+                                            \App\Models\SchoolSession::latest()->first();
+                                    @endphp
+                                    <li class="nav-item w-100 text-center py-2">
+                                        <small class="text-muted">Current: {{ $current_session ? $current_session->session_name : 'None' }}</small>
+                                    </li>
+                                    @foreach($school_sessions as $session)
+                                    <li class="nav-item w-100">
+                                        <form action="{{ route('session.browse') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <input type="hidden" name="session_id" value="{{ $session->id }}">
+                                            <button type="submit" class="btn btn-link nav-link text-start w-100 {{ session()->has('browse_session_id') && session('browse_session_id') == $session->id ? 'fw-bold text-primary' : '' }}">
+                                                <i class="bi bi-calendar3 me-2"></i>{{ $session->session_name }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                    @endforeach
+                                    @if(session()->has('browse_session_id'))
+                                    <li class="nav-item w-100">
+                                        <a href="{{ route('session.reset') }}" class="nav-link text-danger">
+                                            <i class="bi bi-arrow-clockwise me-2"></i>Reset to Current
+                                        </a>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     @endif
                 </ul>

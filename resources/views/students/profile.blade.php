@@ -8,10 +8,10 @@
   background-color: #f8f9fa;
 } */
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-start">
         @include('layouts.left-menu')
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10 main-content">
             <div class="row pt-2">
                 <div class="col ps-4">
                     <h1 class="display-6 mb-3">
@@ -65,9 +65,7 @@
                                             </tr>
                                             <tr>
                                                 <th scope="row">Nationality:</th>
-                                                <td>{{$student->nationality}}</td>
-                                                <th>Religion:</th>
-                                                <td>{{$student->religion}}</td>
+                                                <td colspan="3">{{$student->nationality}}</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Address:</th>
@@ -82,8 +80,6 @@
                                                 <td>{{$student->zip}}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Blood Type:</th>
-                                                <td>{{$student->blood_type}}</td>
                                                 <th>Phone:</th>
                                                 <td>{{$student->phone}}</td>
                                             </tr>

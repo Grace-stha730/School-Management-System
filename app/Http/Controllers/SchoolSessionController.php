@@ -57,4 +57,19 @@ class SchoolSessionController extends Controller
         }
         
     }
+
+    /**
+     * Reset browsing session to current session
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reset()
+    {
+        try {
+            session()->forget('browse_session_id');
+            return redirect()->route('academic.setting')->with('status', 'Session reset to current successfully!');
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
+    }
 }

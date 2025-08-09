@@ -11,6 +11,47 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
+/* Fixed sidebar styles */
+.fixed-sidebar {
+  position: fixed;
+  top: 56px; /* Account for navbar height */
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  z-index: 1000;
+  background-color: #fff;
+  border-right: 1px solid #d9d9d9;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  min-height: calc(100vh - 56px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .fixed-sidebar {
+    width: 200px;
+  }
+  .main-content {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .fixed-sidebar {
+    position: relative;
+    top: auto;
+    width: 100%;
+    height: auto;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+}
+
 #watermark {
   color: #efefef;
   font-size: 50px;

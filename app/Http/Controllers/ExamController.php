@@ -126,7 +126,10 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        //
+        $data = [
+            'exam' => $exam
+        ];
+        return view('exams.show', $data);
     }
 
     /**

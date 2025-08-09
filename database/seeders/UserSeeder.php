@@ -27,8 +27,6 @@ class UserSeeder extends Seeder
             'zip' => '44600',
             'photo' => null,
             'birthday' => '1990-01-01',
-            'blood_type' => 'O+',
-            'religion' => 'Hindu',
             'role' => 'admin',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
@@ -52,8 +50,6 @@ class UserSeeder extends Seeder
                 'zip' => '4460'.$i,
                 'photo' => $i % 4 == 0 ? 'user'.$i.'.jpg' : null,
                 'birthday' => date('Y-m-d', strtotime('-'.(20 + $i).' years')),
-                'blood_type' => $this->getRandomBloodType(),
-                'religion' => $this->getRandomReligion(),
                 'role' => 'user',
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'.$i),
@@ -62,17 +58,5 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
-    }
-
-    private function getRandomBloodType(): string
-    {
-        $types = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-        return $types[array_rand($types)];
-    }
-
-    private function getRandomReligion(): string
-    {
-        $religions = ['Hindu', 'Buddhist', 'Christian', 'Muslim', 'Other'];
-        return $religions[array_rand($religions)];
-    }
+    } 
 }

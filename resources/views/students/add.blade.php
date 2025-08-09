@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-start">
         @include('layouts.left-menu')
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10 main-content">
             <div class="row pt-2">
                 <div class="col ps-4">
                     <h1 class="display-6 mb-3">
@@ -52,15 +52,15 @@
                                 </div>
                                 <div class="col-3-md">
                                     <label for="inputAddress" class="form-label">Address<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputAddress" name="address" placeholder="634 Main St" required value="{{old('address')}}">
+                                    <input type="text" class="form-control" id="inputAddress" name="address" placeholder="Enter your address" required value="{{old('address')}}">
                                 </div>
                                 <div class="col-3-md">
                                     <label for="inputAddress2" class="form-label">Address 2</label>
-                                    <input type="text" class="form-control" id="inputAddress2" name="address2" placeholder="Apartment, studio, or floor" value="{{old('address2')}}">
+                                    <input type="text" class="form-control" id="inputAddress2" name="address2" placeholder="Enter your address 2" value="{{old('address2')}}">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputCity" class="form-label">City<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputCity" name="city" placeholder="Dhaka..." required value="{{old('city')}}">
+                                    <input type="text" class="form-control" id="inputCity" name="city" placeholder="Kathmandu..." required value="{{old('city')}}">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputZip" class="form-label">Zip<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
@@ -75,40 +75,15 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputNationality" class="form-label">Nationality<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputNationality" name="nationality" placeholder="e.g. Bangladeshi, German, ..." required value="{{old('nationality')}}">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="inputBloodType" class="form-label">BloodType<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <select id="inputBloodType" class="form-select" name="blood_type" required>
-                                        <option {{old('blood_type') == 'A+' ? 'selected' : ''}}>A+</option>
-                                        <option {{old('blood_type') == 'A-' ? 'selected' : ''}}>A-</option>
-                                        <option {{old('blood_type') == 'B+' ? 'selected' : ''}}>B+</option>
-                                        <option {{old('blood_type') == 'B-' ? 'selected' : ''}}>B-</option>
-                                        <option {{old('blood_type') == 'O+' ? 'selected' : ''}}>O+</option>
-                                        <option {{old('blood_type') == 'O-' ? 'selected' : ''}}>O-</option>
-                                        <option {{old('blood_type') == 'AB+' ? 'selected' : ''}}>AB+</option>
-                                        <option {{old('blood_type') == 'AB-' ? 'selected' : ''}}>AB-</option>
-                                        <option {{old('blood_type') == 'other' ? 'selected' : ''}}>Other</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="inputReligion" class="form-label">Religion<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <select id="inputReligion" class="form-select" name="religion" required>
-                                        <option {{old('religion') == 'Islam' ? 'selected' : ''}}>Islam</option>
-                                        <option {{old('religion') == 'Hinduism' ? 'selected' : ''}}>Hinduism</option>
-                                        <option {{old('religion') == 'Christianity' ? 'selected' : ''}}>Christianity</option>
-                                        <option {{old('religion') == 'Buddhism' ? 'selected' : ''}}>Buddhism</option>
-                                        <option {{old('religion') == 'Judaism' ? 'selected' : ''}}>Judaism</option>
-                                        <option {{old('religion') == 'Others' ? 'selected' : ''}}>Other</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="inputNationality" name="nationality" placeholder="e.g. Nepali,..." required value="{{old('nationality')}}">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="inputPhone" class="form-label">Phone<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="+880 01......" required value="{{old('phone')}}">
+                                    <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="+977......" required value="{{old('phone')}}">
                                 </div>
                                 <div class="col-5-md">
                                     <label for="inputIdCardNumber" class="form-label">Id Card Number<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputIdCardNumber" name="id_card_number" placeholder="e.g. 2021-03-01-02-01 (Year Semester Class Section Roll)" required value="{{old('id_card_number')}}">
+                                    <input type="text" class="form-control" id="inputIdCardNumber" name="id_card_number" placeholder="Enter Roll No" required value="{{old('id_card_number')}}">
                                 </div>
                             </div>
                             <div class="row mt-4 g-3">
@@ -119,7 +94,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputFatherPhone" class="form-label">Father's Phone<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputFatherPhone" name="father_phone" placeholder="+880 01......" required value="{{old('father_phone')}}">
+                                    <input type="text" class="form-control" id="inputFatherPhone" name="father_phone" placeholder="+977 01......" required value="{{old('father_phone')}}">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputMotherName" class="form-label">Mother Name<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
@@ -127,11 +102,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="inputMotherPhone" class="form-label">Mother's Phone<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputMotherPhone" name="mother_phone" placeholder="+880 01......" required value="{{old('mother_name')}}">
+                                    <input type="text" class="form-control" id="inputMotherPhone" name="mother_phone" placeholder="+977 01......" required value="{{old('mother_name')}}">
                                 </div>
                                 <div class="col-4-md">
                                     <label for="inputParentAddress" class="form-label">Address<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <input type="text" class="form-control" id="inputParentAddress" name="parent_address" placeholder="634 Main St" required value="{{old('parent_address')}}">
+                                    <input type="text" class="form-control" id="inputParentAddress" name="parent_address" placeholder="" required value="{{old('parent_address')}}">
                                 </div>
                             </div>
                             <div class="row mt-4 g-3">
@@ -148,13 +123,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="inputAssignToSection" class="form-label">Assign to section:<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                    <label for="inputAssignToSection" class="form-label">Assign to section(semester/year):<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
                                     <select class="form-select" id="inputAssignToSection" name="section_id" required>
-                                        <option selected disabled>Please select a section</option>
+                                        <option selected disabled>Please select a semester/year</option>
                                     </select>
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="inputBoardRegistrationNumber" class="form-label">Board registration No.</label>
+                                    <label for="inputBoardRegistrationNumber" class="form-label">TU registration No.</label>
                                     <input type="text" class="form-control" id="inputBoardRegistrationNumber" name="board_reg_no" placeholder="Registration No." value="{{old('board_reg_no')}}">
                                 </div>
                                 <input type="hidden" name="session_id" value="{{$current_school_session_id}}">

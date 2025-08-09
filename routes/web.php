@@ -42,13 +42,12 @@ use App\Http\Controllers\UserController;
 
         //academic setting
         Route::get('/academics/settings',[AcademicSettingController::class,'index'])->name('academic.setting');
-        Route::post('attandence/update',[AcademicSettingController::class,'updateAttendanceType'])->name('attatndence.update');
-        Route::post('final-marks-submission-status/update', [AcademicSettingController::class, 'updateFinalMarksSubmissionStatus'])->name('final.marks.submission.status.update');
 
 
         //session
         Route::post('session/store',[SchoolSessionController::class,'store'])->name('session.store');
         Route::post('session/browse', [SchoolSessionController::class, 'browse'])->name('session.browse');
+        Route::get('session/reset', [SchoolSessionController::class, 'reset'])->name('session.reset');
 
         //semester
         Route::post('semester/store',[SemesterController::class,'store'])->name('semester.store');
@@ -94,7 +93,7 @@ use App\Http\Controllers\UserController;
 
         //exams
         Route::get('/exams', [ExamController::class, 'index'])->name('exam.list');
-
+        Route::get('/exams/view/{exam}', [ExamController::class, 'show'])->name('exam.view');
         Route::get('/exams/add', [ExamController::class, 'create'])->name('exam.create');
         Route::post('/exams/store', [ExamController::class, 'store'])->name('exam.store');
 

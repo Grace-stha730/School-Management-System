@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-start">
         @include('layouts.left-menu')
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10 main-content">
             <div class="row pt-2">
                 <div class="col ps-4">
                     <h1 class="display-6 mb-3">
@@ -66,31 +66,6 @@
                                 <div class="col-2">
                                     <label for="inputNationality" class="form-label">Nationality<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
                                     <input type="text" class="form-control" id="inputNationality" name="nationality" placeholder="e.g. Bangladeshi, German, ..." required value="{{$student->nationality}}">
-                                </div>
-                                <div class="col-2">
-                                    <label for="inputBloodType" class="form-label">BloodType<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <select id="inputBloodType" class="form-select" name="blood_type" required>
-                                        <option value="A+" {{($student->blood_type == 'A+')?'selected':null}}>A+</option>
-                                        <option value="A-" {{($student->blood_type == 'A-')?'selected':null}}>A-</option>
-                                        <option value="B+" {{($student->blood_type == 'B+')?'selected':null}}>B+</option>
-                                        <option value="B-" {{($student->blood_type == 'B-')?'selected':null}}>B-</option>
-                                        <option value="O+" {{($student->blood_type == 'O+')?'selected':null}}>O+</option>
-                                        <option value="O-" {{($student->blood_type == 'O-')?'selected':null}}>O-</option>
-                                        <option value="AB+" {{($student->blood_type == 'AB+')?'selected':null}}>AB+</option>
-                                        <option value="AB-" {{($student->blood_type == 'AB-')?'selected':null}}>AB-</option>
-                                        <option value="Other" {{($student->blood_type == 'Other')?'selected':null}}>Other</option>
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                    <label for="inputReligion" class="form-label">Religion<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                    <select id="inputReligion" class="form-select" name="religion" required>
-                                        <option {{($student->religion == 'Islam')?'selected':null}}>Islam</option>
-                                        <option {{($student->religion == 'Hinduism')?'selected':null}}>Hinduism</option>
-                                        <option {{($student->religion == 'Christianity')?'selected':null}}>Christianity</option>
-                                        <option {{($student->religion == 'Buddhism')?'selected':null}}>Buddhism</option>
-                                        <option {{($student->religion == 'Judaism')?'selected':null}}>Judaism</option>
-                                        <option {{($student->religion == 'Other')?'selected':null}}>Other</option>
-                                    </select>
                                 </div>
                                 <div class="col-3">
                                     <label for="inputPhone" class="form-label">Phone<sup><i class="bi bi-asterisk text-primary"></i></sup></label>

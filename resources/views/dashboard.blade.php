@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-start">
         @include('layouts.left-menu')
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10 main-content">
             <div class="row pt-3">
                 <div class="col ps-4">
                     <!-- <h1 class="display-6 mb-3"><i class="ms-auto bi bi-grid"></i> {{ __('Dashboard') }}</h1> -->
@@ -94,27 +94,11 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-lg-6">
                             <div class="card mb-3">
                                 <div class="card-header bg-transparent"><i class="bi bi-calendar-event me-2"></i> Events</div>
-                                <div class="card-body text-dark">
-                                    @include('components.events.event-calendar', ['editable' => 'false', 'selectable' => 'false'])
-                                    {{-- <div class="overflow-auto" style="height: 250px;">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">List group item heading</h5>
-                                                <small>3 days ago</small>
-                                                </div>
-                                                <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                                <small>And some small print.</small>
-                                            </a>
-                                        </div>
-                                    </div> --}}
-                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="card mb-3">
                                 <div class="card-header bg-transparent d-flex justify-content-between"><span><i class="bi bi-megaphone me-2"></i> Notices</span></div>
                                 <div class="card-body p-0 text-dark">

@@ -36,8 +36,6 @@ class StudentStoreRequest extends FormRequest
             'zip'               => 'required|string',
             'photo'             => 'nullable|file',
             'birthday'          => 'required|date',
-            'religion'          => 'required|string',
-            'blood_type'        => 'required|string',
             'password'          => 'required|string|min:8',
 
             // Parents' information

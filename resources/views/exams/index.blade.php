@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-start">
         @include('layouts.left-menu')
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10 main-content">
             <div class="row pt-2">
                 <div class="col ps-4">
                     <h1 class="display-6 mb-3">
@@ -66,6 +66,7 @@
                                             <td>{{$exam->end_date}}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
+                                                    <a href="{{route('exam.view', ['exam' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-success"><i class="bi bi-eye"></i> View</a>
                                                     <a href="{{route('exam.rule.create', ['exam_id' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-plus"></i> Add Rule</a>
                                                     <a href="{{route('exam.rule.list', ['exam_id' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> View Rule</a>
                                                     {{-- <a href="{{route('exam.edit', ['exam_id' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-pen"></i> Edit</a> --}}
@@ -91,6 +92,7 @@
                                                     <td>{{$exam->end_date}}</td>
                                                     <td>
                                                         <div class="btn-group" role="group">
+                                                            <a href="{{route('exam.view', ['exam' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-success"><i class="bi bi-eye"></i> View</a>
                                                             <a href="{{route('exam.rule.create', ['exam_id' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-plus"></i> Add Rule</a>
                                                             <a href="{{route('exam.rule.list', ['exam_id' => $exam->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> View Rule</a>
                                                         </div>
