@@ -37,4 +37,14 @@ class CourseRepository implements CourseInterface {
             throw new \Exception('Failed to update Course. '.$e->getMessage());
         }
     }
+
+    public function searchCourses($query, $session_id) {
+        return Course::where('session_id', $session_id)
+            ->where(function($q) use ($query) {
+                $q->whereRaw('LOWER(course_name) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(course_type) LIKE ?', ['%' . strtolower($query) . '%']);
+            })
+            ->limit(10)
+            ->get();
+    }
 }

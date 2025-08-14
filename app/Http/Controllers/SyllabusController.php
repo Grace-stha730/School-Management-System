@@ -14,8 +14,11 @@ use App\Interfaces\SchoolSessionInterface;
 class SyllabusController extends Controller
 {
     use SchoolSession;
+    
     protected $schoolSessionRepository;
     protected $schoolClassRepository;
+    
+    private const NOT_IMPLEMENTED_MESSAGE = 'Method not implemented';
 
     public function __construct(
         SchoolSessionInterface $schoolSessionRepository,
@@ -28,7 +31,7 @@ class SyllabusController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index(Request $request)
     {
@@ -46,7 +49,7 @@ class SyllabusController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function create()
     {
@@ -65,15 +68,17 @@ class SyllabusController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreFileRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreFileRequest $request)
     {
         $validatedRequest = $request->validated();
-        $validatedRequest['class_id'] = $request->class_id;
-        $validatedRequest['course_id'] = $request->course_id;
-        $validatedRequest['syllabus_name'] = $request->syllabus_name;
         $validatedRequest['session_id'] = $this->getSchoolCurrentSession();
+
+        // Add additional fields from request
+        $validatedRequest['class_id'] = $request->class_id ?? null;
+        $validatedRequest['course_id'] = $request->course_id ?? null;
+        $validatedRequest['syllabus_name'] = $request->syllabus_name ?? null;
 
         try {
             $syllabusRepository = new SyllabusRepository();
@@ -89,22 +94,22 @@ class SyllabusController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Syllabus  $syllabus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Syllabus $syllabus)
     {
-        //
+        return response()->json(['message' => self::NOT_IMPLEMENTED_MESSAGE]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Syllabus  $syllabus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Syllabus $syllabus)
     {
-        //
+        return response()->json(['message' => self::NOT_IMPLEMENTED_MESSAGE]);
     }
 
     /**
@@ -112,21 +117,21 @@ class SyllabusController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Syllabus  $syllabus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Syllabus $syllabus)
     {
-        //
+        return response()->json(['message' => self::NOT_IMPLEMENTED_MESSAGE]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Syllabus  $syllabus
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Syllabus $syllabus)
     {
-        //
+        return response()->json(['message' => self::NOT_IMPLEMENTED_MESSAGE]);
     }
 }

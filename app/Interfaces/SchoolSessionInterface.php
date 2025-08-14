@@ -14,4 +14,6 @@ interface SchoolSessionInterface {
     public function getSessionById($id);
 
     public function browse($request);
+
+    public function delete($id);
 }

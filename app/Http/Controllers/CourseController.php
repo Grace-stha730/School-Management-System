@@ -74,6 +74,16 @@ class CourseController extends Controller
         $current_school_session_id = $this->getSchoolCurrentSession();
         $promotionRepository = new PromotionRepository();
         $class_info = $promotionRepository->getPromotionInfoById($current_school_session_id, $student_id);
+        
+        // Check if student has been assigned to a class in current session
+        if (!$class_info) {
+            return view('courses.student', [
+                'class_info' => null,
+                'courses' => collect([]),
+                'error_message' => 'You have not been assigned to a class for the current academic session. Please contact the administration to be assigned to a class through the Student Promotions system.'
+            ]);
+        }
+        
         $courses = $this->schoolCourseRepository->getByClassId($class_info->class_id);
 
         $data = [

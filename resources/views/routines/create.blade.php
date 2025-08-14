@@ -16,53 +16,80 @@
                     </nav>
                     @include('session-messages')
                     <div class="row">
-                        <div class="col-md-5 mb-4">
+                        <div class="col-12 mb-4">
                             <div class="p-3 border bg-light shadow-sm">
                                 <form action="{{route('routine.store')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="session_id" value="{{$current_school_session_id}}">
-                                    <div>
-                                        <p class="mt-2">Select class:<sup><i class="bi bi-asterisk text-primary"></i></sup></p>
-                                        <select class="form-select" name="class_id" required id="inputAssignToClass">
-                                            @isset($classes)
-                                                <option selected disabled>Please select a class</option>
-                                                @foreach ($classes as $school_class)
-                                                <option value="{{$school_class->id}}">{{$school_class->class_name}}</option>
-                                                @endforeach
-                                            @endisset
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Select class<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                                <select class="form-select" name="class_id" required id="inputAssignToClass">
+                                                    @isset($classes)
+                                                        <option selected disabled>Please select a class</option>
+                                                        @foreach ($classes as $school_class)
+                                                        <option value="{{$school_class->id}}">{{$school_class->class_name}}</option>
+                                                        @endforeach
+                                                    @endisset
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Select section<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                                <select class="form-select" id="section-select" name="section_id" required>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="mt-2">Select section:<sup><i class="bi bi-asterisk text-primary"></i></sup></p>
-                                        <select class="form-select" id="section-select" name="section_id" required>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Select course<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                                <select class="form-select" id="course-select" name="course_id" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Week Day<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                                <select class="form-select" name="weekday" required>
+                                                    <option value="1">Monday</option>
+                                                    <option value="2">Tuesday</option>
+                                                    <option value="3">Wednesday</option>
+                                                    <option value="4">Thursday</option>
+                                                    <option value="5">Friday</option>
+                                                    <option value="6">Saturday</option>
+                                                    <option value="7">Sunday</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="mt-2">Select course:<sup><i class="bi bi-asterisk text-primary"></i></sup></p>
-                                        <select class="form-select" id="course-select" name="course_id" required>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="inputStarts" class="form-label">Starts<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                                <input type="text" class="form-control" id="inputStarts" name="start" placeholder="09:00am" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="inputEnds" class="form-label">Ends<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
+                                                <input type="text" class="form-control" id="inputEnds" name="end" placeholder="09:50am" required>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="mt-2">
-                                        <p>Week Day<sup><i class="bi bi-asterisk text-primary"></i></sup></p>
-                                        <select class="form-select" id="course-select" name="weekday" required>
-                                            <option value="1">Monday</option>
-                                            <option value="2">Tuesday</option>
-                                            <option value="3">Wednesday</option>
-                                            <option value="4">Thursday</option>
-                                            <option value="5">Friday</option>
-                                            <option value="6">Saturday</option>
-                                            <option value="7">Sunday</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-check2"></i> Create Routine
+                                            </button>
+                                            <a href="{{ route('routine.list') }}" class="btn btn-secondary">
+                                                <i class="bi bi-arrow-left"></i> Back to List
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="mt-2">
-                                        <label for="inputStarts" class="form-label">Starts<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                        <input type="text" class="form-control" id="inputStarts" name="start" placeholder="09:00am" required>
-                                    </div>
-                                    <div class="mt-2">
-                                        <label for="inputEnds" class="form-label">Ends<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                        <input type="text" class="form-control" id="inputEnds" name="end" placeholder="09:50am" required>
-                                    </div>
-                                    <button type="submit" class="mt-3 btn btn-sm btn-outline-primary"><i class="bi bi-check2"></i> Create</button>
                                 </form>
                             </div>
                         </div>

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Syllabus extends Model
 {
     use HasFactory;
+
+    protected $table = 'syllabus';
+
     protected $fillable = [
         'syllabus_name',
         'syllabus_file_path',

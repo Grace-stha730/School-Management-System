@@ -8,12 +8,12 @@
             <div class="row pt-2">
                 <div class="col ps-4">
                     <h1 class="display-6 mb-3">
-                        <i class="bi bi-person-lines-fill"></i> Add Teacher
+                        <i class="bi bi-person-lines-fill"></i> Add Faculty Member
                     </h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Teacher</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Faculty Member</li>
                         </ol>
                     </nav>
 
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="inputAddress" class="form-label">Address<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                <input type="text" class="form-control" id="inputAddress" name="address" placeholder="634 Main St" required value="{{old('address')}}">
+                                <input type="text" class="form-control" id="inputAddress" name="address" placeholder="" required value="{{old('address')}}">
                             </div>
                             <div class="col-md-12">
                                 <label for="inputAddress2" class="form-label">Address 2</label>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="inputCity" class="form-label">City<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                <input type="text" class="form-control" id="inputCity" name="city" placeholder="Dhaka..." required value="{{old('city')}}">
+                                <input type="text" class="form-control" id="inputCity" name="city" placeholder="Ktm..." required value="{{old('city')}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="inputZip" class="form-label">Zip<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="inputPhone" class="form-label">Phone<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="+880 01......" required value="{{old('phone')}}">
+                                <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="" required value="{{old('phone')}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="inputGender" class="form-label">Gender<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="inputNationality" class="form-label">Nationality<sup><i class="bi bi-asterisk text-primary"></i></sup></label>
-                                <input type="text" class="form-control" id="inputNationality" name="nationality" placeholder="e.g. Bangladeshi, German, ..." required value="{{old('nationality')}}">
+                                <input type="text" class="form-control" id="inputNationality" name="nationality" placeholder="e.g. Nepali, Indian ..." required value="{{old('nationality')}}">
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-sm btn-outline-primary"><i class="bi bi-person-plus"></i> Add</button>

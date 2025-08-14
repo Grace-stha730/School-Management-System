@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SMS-Sikhi</title>
+        <title>CMS</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <script src="{{ asset("js/jquery-3.6.0.min.js") }}"></script>
     <style>
@@ -23,7 +23,7 @@
             border-bottom-left-radius: 15px ;
             height: 40rem; 
             width: 58%; 
-            background-image: url("{{asset('sikhi/sikhi.avif')}}"); 
+            background-image: url("{{asset('assets/sikhi.avif')}}"); 
             background-size: cover; 
             background-repeat: no-repeat; 
             display: flex;
@@ -47,10 +47,11 @@
         }
 
         .info h1 {
-            position: relative; 
-            z-index: 1; 
+            position: relative;
+            z-index: 1;
             color: white;
             font-size: 3rem;
+            text-align: center;
         }
 
         .info p {
@@ -171,7 +172,7 @@
         <div>
            <div class="main">
             <div class="info">
-                <h1>Welcome to SMS</h1>
+                <h1>WELCOME</h1>
             </div>
             <div class="signin">
                 <h5 class="text-danger">
@@ -179,7 +180,7 @@
                     .
                 </h5>
                 <div class="logo">
-                    <img src="{{asset('sikhi/logo.png')}}"/>
+                    <img src="{{asset('assets/logo.png')}}"/>
                     <h1>Sign in</h1>
                 </div>
                 <form action="{{ route('login.process')}}" method="post">

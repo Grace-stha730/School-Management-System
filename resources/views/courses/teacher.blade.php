@@ -5,115 +5,144 @@
     <div class="row justify-content-start">
         @include('layouts.left-menu')
         <div class="col-xs-11 col-sm-11 col-md-11 col-lg-10 col-xl-10 col-xxl-10 main-content">
-            <div class="row pt-2">
+            <div class="row pt-3">
                 <div class="col ps-4">
-                    <h1 class="display-6 mb-3">
-                        <i class="bi bi-journal-medical"></i> My Courses
-                    </h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">My courses</li>
-                        </ol>
-                    </nav>
-                    <h6>Filter list by:</h6>
-                    <div class="mb-4 mt-4">
-                        <form action="{{route('course.teacher.list')}}" method="GET">
-                            <input type="hidden" name="teacher_id" value="{{Auth::user()->id}}">
-                            <div class="row">
-                                <div class="col">
-                                    <select class="form-select" aria-label=".form-select-sm" name="semester_id" required>
-                                        @isset($semesters)
-                                            @foreach ($semesters as $semester)
-                                            <option value="{{$semester->id}}" {{($semester->id === request()->query('semester_id'))?'selected':''}}>{{$semester->semester_name}}</option>
-                                            @endforeach
-                                        @endisset
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-counterclockwise"></i> Load List</button>
-                                </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>My Subjects</h4>
+                        </div>
+                        <div class="card-body">
+                    <!-- Optional Semester Filter -->
+                    <form class="mb-4" method="GET">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="semester_id" class="form-label">Filter by Semester (Optional)</label>
+                                <select name="semester_id" id="semester_id" class="form-control">
+                                    <option value="">Current Semester (Default)</option>
+                                    @if(isset($semesters))
+                                        @foreach ($semesters as $semester)
+                                            <option value="{{ $semester->id }}" {{ (isset($selected_semester_id) && $selected_semester_id == $semester->id) ? 'selected' : '' }}>
+                                                {{ $semester->semester_name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
-                        </form>
-                        <div class="p-3 mt-3 bg-white border shadow-sm">
-                            <table class="table">
+                            <div class="col-md-6 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary me-2">Filter Subjects</button>
+                                <a href="{{ route('course.teacher.list') }}" class="btn btn-secondary">Reset</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Subjects Display -->
+                    @if(isset($courses) && count($courses) > 0)
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> 
+                            Showing {{ isset($course_count) ? $course_count : count($courses) }} assigned subject(s)
+                            @if(isset($selected_semester_id) && $selected_semester_id)
+                                for the selected semester
+                            @endif
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Course Name</th>
-                                        <th scope="col">Class</th>
-                                        <th scope="col">Section</th>
-                                        <th scope="col">Actions</th>
+                                        <th>Subject</th>
+                                        <th>Department</th>
+                                        <th>Batch</th>
+                                        <th>Semester</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($courses)
-                                        @foreach ($courses as $course)
+                                    @foreach($courses as $course)
                                         <tr>
-                                            <td>{{$course->course->course_name}}</td>
-                                            <td>{{$course->schoolClass->class_name}}</td>
-                                            <td>{{$course->section->section_name}}</td>
+                                            <td>{{ $course->course->course_name ?? 'N/A' }}</td>
+                                            <td>{{ $course->schoolClass->class_name ?? 'N/A' }}</td>
+                                            <td>{{ $course->section->section_name ?? 'N/A' }}</td>
+                                            <td>{{ $course->semester->semester_name ?? 'N/A' }}</td>
                                             <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                      Action
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                        Actions
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                      <li><a href="{{route('attendance.create.show', [
-                                                        'class_id' => $course->schoolClass->id,
-                                                        'section_id' => $course->section->id,
-                                                        'course_id' => $course->course->id,
-                                                        'class_name' => $course->schoolClass->class_name,
-                                                        'section_name' => $course->section->section_name,
-                                                        'course_name' => $course->course->course_name
-                                                    ])}}" role="button" class="dropdown-item"><i class="bi bi-calendar2-week me-2"></i> Take Attendance</a></li>
-                                                      <li><a href="{{route('attendance.list.show', [
-                                                        'class_id' => $course->schoolClass->id,
-                                                        'section_id' => $course->section->id,
-                                                        'course_id' => $course->course->id,
-                                                        'class_name' => $course->schoolClass->class_name,
-                                                        'section_name' => $course->section->section_name,
-                                                        'course_name' => $course->course->course_name
-                                                    ])}}" role="button" class="dropdown-item"><i class="bi bi-calendar2-week-fill me-2"></i> View Attendance</a></li>
-                                                    <li><a href="{{route('course.syllabus.index', ['course_id' => $course->course->id])}}" role="button" class="dropdown-item"><i class="bi bi-journal-text me-2"></i> View Syllabus</a></li>
-                                                      <li><a href="{{route('assignment.create', [
-                                                        'class_id' => $course->schoolClass->id,
-                                                        'section_id' => $course->section->id,
-                                                        'course_id' => $course->course->id,
-                                                        'semester_id' => request()->query('semester_id')
-                                                    ])}}" role="button" class="dropdown-item"><i class="bi bi-file-post me-2"></i> Create Assignment</a></li>
-                                                      <li><a href="{{route('assignment.list.show', ['course_id' => $course->course->id])}}" role="button" class="dropdown-item"><i class="bi bi-file-post-fill me-2"></i> View Assignments</a></li>
-                                                      <li><a href="{{route('course.mark.create', [
-                                                        'class_id' => $course->schoolClass->id,
-                                                        'class_name' => $course->schoolClass->class_name,
-                                                        'section_id' => $course->section->id,
-                                                        'section_name' => $course->section->section_name,
-                                                        'course_id' => $course->course->id,
-                                                        'course_name' => $course->course->course_name,
-                                                        'semester_id' => $selected_semester_id
-                                                    ])}}" role="button" class="dropdown-item"><i class="bi bi-input-cursor me-2"></i> Give Marks</a></li>
-                                                    <li><a href="{{route('course.mark.list.show', [
-                                                        'class_id' => $course->schoolClass->id,
-                                                        'class_name' => $course->schoolClass->class_name,
-                                                        'section_id' => $course->section->id,
-                                                        'section_name' => $course->section->section_name,
-                                                        'course_id' => $course->course->id,
-                                                        'course_name' => $course->course->course_name,
-                                                        'semester_id' => $selected_semester_id
-                                                    ])}}" role="button" class="dropdown-item"><i class="bi bi-cloud-sun me-2"></i> View Final Results</a></li>
-                                                    <li><a href="#" role="button" class="dropdown-item disabled"  tabindex="-1" aria-disabled="true"><i class="bi bi-chat-left-text me-2"></i> Message Students</a></li>
+                                                        @can('create notes')
+                                                            <li>
+                                                                <a class="dropdown-item" href="{{ route('notes.create', [
+                                                                    'class_id' => $course->class_id,
+                                                                    'section_id' => $course->section_id,
+                                                                    'course_id' => $course->course_id,
+                                                                    'semester_id' => $course->semester_id
+                                                                ]) }}">
+                                                                    📝 Add Notes
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        @can('view notes')
+                                                            <li>
+                                                                <a class="dropdown-item" href="{{ route('notes.list', [
+                                                                    'class_id' => $course->class_id,
+                                                                    'section_id' => $course->section_id,
+                                                                    'course_id' => $course->course_id,
+                                                                    'semester_id' => $course->semester_id
+                                                                ]) }}">
+                                                                    📖 View Notes
+                                                                </a>
+                                                            </li>
+                                                        @endcan
+                                                        <li>
+                                                            <a class="dropdown-item" href="{{ route('course.syllabus.index', [
+                                                                'course_id' => $course->course_id
+                                                            ]) }}">
+                                                                📄 View Syllabus
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="{{ route('course.mark.create', [
+                                                                'class_id' => $course->class_id,
+                                                                'section_id' => $course->section_id,
+                                                                'course_id' => $course->course_id,
+                                                                'semester_id' => $course->semester_id
+                                                            ]) }}">
+                                                                ✏️ Give Marks
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="{{ route('course.mark.list.show', [
+                                                                'class_id' => $course->class_id,
+                                                                'section_id' => $course->section_id,
+                                                                'course_id' => $course->course_id,
+                                                                'semester_id' => $course->semester_id
+                                                            ]) }}">
+                                                                ☀️ View Final Results
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endforeach
-                                    @endisset
+                                    @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                    @else
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            No courses assigned to you
+                            @if(isset($selected_semester_id) && $selected_semester_id)
+                                for the selected semester. Try selecting a different semester or contact administration.
+                            @else
+                                . Please contact administration if you believe this is an error.
+                            @endif
+                        </div>
+                    @endif
                         </div>
                     </div>
                 </div>
             </div>
-            @include('layouts.footer')
         </div>
     </div>
 </div>

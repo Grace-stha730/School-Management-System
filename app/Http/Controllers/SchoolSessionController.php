@@ -66,8 +66,44 @@ class SchoolSessionController extends Controller
     public function reset()
     {
         try {
-            session()->forget('browse_session_id');
-            return redirect()->route('academic.setting')->with('status', 'Session reset to current successfully!');
+            // Clear the browsing session
+            session()->forget(['browse_session_id', 'browse_session_name']);
+            
+            return back()->with('status', 'Session reset to current successfully!');
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
+    }
+
+    /**
+     * Delete the specified academic session.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $session = $this->schoolSessionRepository->getSessionById($id);
+            
+            if (!$session) {
+                return back()->withError('Session not found!');
+            }
+
+            // Check if this is the latest session
+            $latestSession = $this->schoolSessionRepository->getLatestSession();
+            if ($latestSession->id == $id) {
+                return back()->withError('Cannot delete the latest academic session!');
+            }
+
+            // Check if currently browsing this session
+            if (session()->has('browse_session_id') && session('browse_session_id') == $id) {
+                session()->forget(['browse_session_id', 'browse_session_name']);
+            }
+
+            $this->schoolSessionRepository->delete($id);
+
+            return back()->with('status', 'Academic session deleted successfully!');
         } catch (\Exception $e) {
             return back()->withError($e->getMessage());
         }

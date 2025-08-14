@@ -57,6 +57,28 @@ class User extends Authenticatable
     ];
 
     /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            // Automatically assign basic permissions to students
+            if ($user->role === 'student') {
+                $user->givePermissionTo([
+                    'view notes',
+                    'view assignments',
+                    'view syllabi',
+                    'view marks'
+                ]);
+            }
+        });
+    }
+
+    /**
      * Get the parent_info.
      */
     public function parent_info()
@@ -78,5 +100,77 @@ class User extends Authenticatable
     public function marks()
     {
         return $this->hasMany(Mark::class, 'student_id', 'id');
+    }
+
+    /**
+     * Get the student fees.
+     */
+    public function studentFees()
+    {
+        return $this->hasMany(StudentFee::class, 'student_id', 'id');
+    }
+
+    /**
+     * Get the assignments as teacher.
+     */
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class, 'teacher_id', 'id');
+    }
+
+    /**
+     * Get the notes as teacher.
+     */
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'teacher_id', 'id');
+    }
+
+    /**
+     * Get the assigned courses as teacher.
+     */
+    public function assignedCourses()
+    {
+        return $this->hasMany(AssignedTeacher::class, 'teacher_id', 'id');
+    }
+
+    /**
+     * Get the promotions as student.
+     */
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class, 'student_id', 'id');
+    }
+
+    /**
+     * Check if user is a student.
+     */
+    public function isStudent()
+    {
+        return $this->role === 'student';
+    }
+
+    /**
+     * Check if user is a teacher.
+     */
+    public function isTeacher()
+    {
+        return $this->role === 'teacher';
+    }
+
+    /**
+     * Check if user is an admin.
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Get full name.
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

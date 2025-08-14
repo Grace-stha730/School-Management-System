@@ -10,14 +10,6 @@ class AcademicSettingRepository implements AcademicSettingInterface {
         return AcademicSetting::find(1);
     }
 
-    public function updateAttendanceType($request) {
-        try {
-            AcademicSetting::where('id', 1)->update($request);
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to update attendance type. '.$e->getMessage());
-        }
-    }
-
     public function updateFinalMarksSubmissionStatus($request) {
         $status = "off";
         if(isset($request['marks_submission_status'])) {

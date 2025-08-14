@@ -272,6 +272,74 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Session Management Section -->
+                    <div class="mb-5">
+                        <h4 class="mb-3"><i class="bi bi-calendar-x text-danger"></i> Session Management</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="p-3 border bg-light shadow-sm">
+                                    <h6><i class="bi bi-trash text-danger"></i> Delete Academic Sessions</h6>
+                                    <p class="small text-muted mb-3">
+                                        <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i>
+                                        Warning: Deleting an academic session will permanently remove all associated data. You cannot delete the latest academic session.
+                                    </p>
+                                    
+                                    @if($school_sessions->count() > 1)
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Session Name</th>
+                                                        <th>Created</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($school_sessions as $session)
+                                                        <tr>
+                                                            <td>{{ $session->session_name }}</td>
+                                                            <td>{{ $session->created_at->format('M d, Y') }}</td>
+                                                            <td>
+                                                                @if($session->id == $latest_school_session_id)
+                                                                    <span class="badge bg-success">Current</span>
+                                                                @elseif(session()->has('browse_session_id') && session('browse_session_id') == $session->id)
+                                                                    <span class="badge bg-info">Browsing</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary">Previous</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                @if($session->id != $latest_school_session_id)
+                                                                    <form action="{{ route('session.destroy', $session->id) }}" method="POST" 
+                                                                          onsubmit="return confirm('Are you sure you want to delete this session? This action cannot be undone.')" 
+                                                                          class="d-inline">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                                            <i class="bi bi-trash"></i> Delete
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    <span class="text-muted small">Cannot delete current session</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-info">
+                                            <i class="bi bi-info-circle me-2"></i>
+                                            Only one academic session exists. You need at least one session to maintain the system.
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             @include('layouts.footer')

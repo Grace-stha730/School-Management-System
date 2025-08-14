@@ -65,13 +65,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit grading systems rule']);
         Permission::create(['name' => 'delete grading systems rule']);
 
-        Permission::create(['name' => 'take attendances']);
-        Permission::create(['name' => 'view attendances']);
-        Permission::create(['name' => 'update attendances type']);
-
         Permission::create(['name' => 'submit assignments']);
         Permission::create(['name' => 'create assignments']);
         Permission::create(['name' => 'view assignments']);
+    Permission::create(['name' => 'create notes']);
+    Permission::create(['name' => 'view notes']);
 
         Permission::create(['name' => 'save marks']);
         Permission::create(['name' => 'view marks']);
@@ -145,9 +143,6 @@ class PermissionSeeder extends Seeder
             'edit users',
             'view users',
             'promote students',
-            'update attendances type',
-            'view attendances',
-            'take attendances',//Teacher only
             'create grading systems',
             'view grading systems',
             'edit grading systems',
@@ -168,7 +163,23 @@ class PermissionSeeder extends Seeder
             'view syllabi',
             'edit syllabi',
             'delete syllabi',
-            'view assignments'
+            'view assignments',
+            'create notes',
+            'view notes',
+            
+            // Fee management permissions
+            'create fee heads',
+            'view fee heads',
+            'edit fee heads',
+            'delete fee heads',
+            'create fee structures',
+            'view fee structures',
+            'edit fee structures',
+            'delete fee structures',
+            'view student fees',
+            'manage student fees',
+            'update fee payments',
+            'add fee discounts'
         );
     }
 }

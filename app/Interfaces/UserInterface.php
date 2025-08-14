@@ -24,4 +24,8 @@ interface UserInterface {
     public function getAllTeachers();
 
     public function changePassword($new_password);
+
+    public function searchStudents($query, $session_id);
+
+    public function searchTeachers($query);
 }

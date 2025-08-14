@@ -22,7 +22,7 @@ class Mark extends Model
     ];
 
     /**
-     * Get the student for attendances.
+     * Get the student for marks.
      */
     public function student()
     {

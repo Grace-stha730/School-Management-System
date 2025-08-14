@@ -13,7 +13,7 @@ class StoreFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return (auth()->user()->can('create assignments') || auth()->user()->can('create syllabi'));
+        return auth()->user()->can('create assignments') || auth()->user()->can('create syllabi') || auth()->user()->can('create notes');
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file'              => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip'
+            'note_name'         => 'sometimes|string|max:255',
+            'file'              => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+            'class_id'          => 'sometimes|integer|exists:school_classes,id',
+            'section_id'        => 'sometimes|integer|exists:sections,id',
+            'course_id'         => 'sometimes|integer|exists:courses,id',
+            'semester_id'       => 'sometimes|integer|exists:semesters,id'
         ];
     }
 }

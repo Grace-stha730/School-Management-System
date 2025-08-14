@@ -45,4 +45,11 @@ class AssignedTeacher extends Model
     public function course() {
         return $this->belongsTo(Course::class, 'course_id');
     }
+
+    /**
+     * Get the semester.
+     */
+    public function semester() {
+        return $this->belongsTo(Semester::class, 'semester_id');
+    }
 }

@@ -94,10 +94,6 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                            <div class="card mb-3">
-                                <div class="card-header bg-transparent"><i class="bi bi-calendar-event me-2"></i> Events</div>
-                            </div>
-                        </div>
                         <div class="col-lg-12">
                             <div class="card mb-3">
                                 <div class="card-header bg-transparent d-flex justify-content-between"><span><i class="bi bi-megaphone me-2"></i> Notices</span></div>

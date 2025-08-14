@@ -4,6 +4,7 @@ return [
     App\Providers\AcademicSettingProvider::class,
     App\Providers\AppServiceProvider::class,
     App\Providers\CourseProvider::class,
+    App\Providers\FeeProvider::class,
     App\Providers\SchoolClassProvider::class,
     App\Providers\SchoolSessionProvider::class,
     App\Providers\SectionProvider::class,

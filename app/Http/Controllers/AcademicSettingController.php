@@ -12,7 +12,7 @@ use App\Interfaces\SemesterInterface;
 use App\Interfaces\SchoolClassInterface;
 use App\Interfaces\SchoolSessionInterface;
 use App\Interfaces\AcademicSettingInterface;
-use App\Http\Requests\AttendanceTypeUpdateRequest;
+
 
 class AcademicSettingController extends Controller
 {
@@ -87,24 +87,6 @@ class AcademicSettingController extends Controller
 // dd($data);
         return view('academics.settings', $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  AttendanceTypeUpdateRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updateAttendanceType(AttendanceTypeUpdateRequest $request)
-    {
-        try {
-            $this->academicSettingRepository->updateAttendanceType($request->validated());
-
-            return back()->with('status', 'Attendance type update was successful!');
-        } catch (\Exception $e) {
-            return back()->withError($e->getMessage());
-        }
-    }
-
     public function updateFinalMarksSubmissionStatus(Request $request) {
         try {
             $this->academicSettingRepository->updateFinalMarksSubmissionStatus($request);

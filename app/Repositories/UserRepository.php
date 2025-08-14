@@ -53,10 +53,10 @@ class UserRepository implements UserInterface {
                     'view exams rule',
                     'edit exams rule',
                     'delete exams rule',
-                    'take attendances',
-                    'view attendances',
                     'create assignments',
                     'view assignments',
+                    'create notes',
+                    'view notes',
                     'save marks',
                     'view users',
                     'view routines',
@@ -115,9 +115,9 @@ class UserRepository implements UserInterface {
                 $promotionRepository->assignClassSection($request, $student->id);
 
                 $student->givePermissionTo(
-                    'view attendances',
                     'view assignments',
                     'submit assignments',
+                    'view notes',
                     'view exams',
                     'view marks',
                     'view users',
@@ -246,5 +246,30 @@ class UserRepository implements UserInterface {
         } catch (\Exception $e) {
             throw new \Exception('Failed to change password. '.$e->getMessage());
         }
+    }
+
+    public function searchStudents($query, $session_id) {
+        // Simple search across all students - more reliable
+        return User::where('role', 'student')
+            ->where(function($q) use ($query) {
+                $q->whereRaw('LOWER(first_name) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(last_name) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(email) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(CONCAT(first_name, " ", last_name)) LIKE ?', ['%' . strtolower($query) . '%']);
+            })
+            ->limit(10)
+            ->get();
+    }
+
+    public function searchTeachers($query) {
+        return User::where('role', 'teacher')
+            ->where(function($q) use ($query) {
+                $q->whereRaw('LOWER(first_name) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(last_name) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(email) LIKE ?', ['%' . strtolower($query) . '%'])
+                  ->orWhereRaw('LOWER(CONCAT(first_name, " ", last_name)) LIKE ?', ['%' . strtolower($query) . '%']);
+            })
+            ->limit(10)
+            ->get();
     }
 }

@@ -17,11 +17,12 @@
                         </ol>
                     </nav>
                     @include('session-messages')
-                    <h6>Filter list by:</h6>
+                    <h6>Filter students by class and section:</h6>
                     <div class="mb-4 mt-4">
-                        <form class="row" action="{{route('student.list')}}" method="GET">
-                            <div class="col">
-                                <select onchange="getSections(this);" class="form-select" aria-label="Class" name="class_id" required>
+                        <form class="row g-3" action="{{route('student.list')}}" method="GET">
+                            <div class="col-md-4">
+                                <label for="class-select" class="form-label">Class</label>
+                                <select onchange="getSections(this);" class="form-select" id="class-select" aria-label="Class" name="class_id" required>
                                     @isset($school_classes)
                                         <option selected disabled>Please select a class</option>
                                         @foreach ($school_classes as $school_class)
@@ -30,13 +31,23 @@
                                     @endisset
                                 </select>
                             </div>
-                            <div class="col">
+                            <div class="col-md-4">
+                                <label for="section-select" class="form-label">Section</label>
                                 <select class="form-select" id="section-select" aria-label="Section" name="section_id" required>
-                                    <option value="{{request()->query('section_id')}}">{{request()->query('section_name')}}</option>
+                                    @if(request()->query('section_id') && request()->query('section_name'))
+                                        <option value="{{request()->query('section_id')}}" selected>{{request()->query('section_name')}}</option>
+                                    @else
+                                        <option selected disabled>Please select a section</option>
+                                    @endif
                                 </select>
                             </div>
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-counterclockwise"></i> Load List</button>
+                            <div class="col-md-4">
+                                <div class="pt-4">
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Load Students</button>
+                                    @if(request()->query('class_id') || request()->query('section_id'))
+                                        <a href="{{route('student.list')}}" class="btn btn-outline-secondary ms-2"><i class="bi bi-arrow-clockwise"></i> Reset</a>
+                                    @endif
+                                </div>
                             </div>
                         </form>
                         @foreach ($studentList as $student)
@@ -75,7 +86,6 @@
                                         <td>{{$student->student->phone}}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="{{route('student.attendance', ['id' => $student->student->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Attendance</a>
                                                 <a href="{{route('student.profile',['id'=>$student->student->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Profile</a>
                                                 @can('edit users')
                                                 <a href="{{route('student.edit', ['id' => $student->student->id])}}" role="button" class="btn btn-sm btn-outline-primary"><i class="bi bi-pen"></i> Edit</a>
@@ -99,7 +109,8 @@
     function getSections(obj) {
         var class_id = obj.options[obj.selectedIndex].value;
 
-        
+        var url = "{{route('get.sections.courses.by.classId', ':class_id')}}";
+        url = url.replace(':class_id', class_id);
 
         fetch(url)
         .then((resp) => resp.json())
@@ -115,5 +126,16 @@
             console.log(error);
         });
     }
+
+    // Load sections on page load if class is already selected
+    document.addEventListener('DOMContentLoaded', function() {
+        var classSelect = document.getElementById('class-select');
+        var currentClassId = {{request()->query('class_id', 0)}};
+        
+        if (currentClassId > 0) {
+            // Trigger getSections to load sections for the currently selected class
+            getSections(classSelect);
+        }
+    });
 </script>
 @endsection

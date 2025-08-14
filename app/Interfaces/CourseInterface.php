@@ -12,4 +12,6 @@ interface CourseInterface {
     public function findById($course_id);
 
     public function update($request);
+
+    public function searchCourses($query, $session_id);
 }

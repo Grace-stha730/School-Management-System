@@ -53,4 +53,17 @@ class SchoolSessionRepository implements SchoolSessionInterface {
     public function getSessionById($id) {
         return SchoolSession::find($id);
     }
+
+    public function delete($id) {
+        try {
+            $session = SchoolSession::find($id);
+            if ($session) {
+                $session->delete();
+            } else {
+                throw new \Exception('Session not found.');
+            }
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to delete School Session. '.$e->getMessage());
+        }
+    }
 }

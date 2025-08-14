@@ -57,4 +57,11 @@ class SchoolClassRepository implements SchoolClassInterface {
             throw new \Exception('Failed to update School Class. '.$e->getMessage());
         }
     }
+
+    public function searchClasses($query, $session_id) {
+        return SchoolClass::where('session_id', $session_id)
+            ->whereRaw('LOWER(class_name) LIKE ?', ['%' . strtolower($query) . '%'])
+            ->limit(10)
+            ->get();
+    }
 }

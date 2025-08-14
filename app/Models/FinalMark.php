@@ -22,7 +22,7 @@ class FinalMark extends Model
     ];
 
     /**
-     * Get the student for attendances.
+     * Get the student for final marks.
      */
     public function student()
     {

@@ -34,43 +34,50 @@ class AssignedTeacherController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['message' => 'Method not implemented']);
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param  CourseStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return \Illuminate\View\View
      */
     public function getTeacherCourses(Request $request)
     {
-        $teacher_id = $request->query('teacher_id');
-        $semester_id = $request->query('semester_id');
+        try {
+            $teacher_id = auth()->user()->id;
+            $semester_id = $request->query('semester_id');
+            
+            $assignedTeacherRepository = new AssignedTeacherRepository();
+            
+            // If no semester is selected, get the current semester
+            if (!$semester_id) {
+                $current_session = $this->getSchoolCurrentSession();
+                // Get the current or most recent semester
+                $semester = \App\Models\Semester::where('session_id', $current_session)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+                $semester_id = $semester ? $semester->id : null;
+            }
+            
+            $current_session = $this->getSchoolCurrentSession();
+            $courses = $assignedTeacherRepository->getTeacherCourses($current_session, $teacher_id, $semester_id);
+            
+            // Get all semesters for the filter dropdown
+            $semesters = \App\Models\Semester::where('session_id', $current_session)->get();
+            
+            $data = [
+                'courses' => $courses,
+                'selected_semester_id' => $semester_id,
+                'course_count' => count($courses),
+                'semesters' => $semesters
+            ];
 
-        if($teacher_id == null) {
-            abort(404);
+            return view('courses.teacher', $data);
+        } catch (\Exception $e) {
+            return back()->withError('Error loading courses: ' . $e->getMessage());
         }
-        
-        $current_school_session_id = $this->getSchoolCurrentSession();
-
-        $semesters = $this->semesterRepository->getAll($current_school_session_id);
-
-        $assignedTeacherRepository = new AssignedTeacherRepository();
-
-        if($semester_id == null) {
-            $courses = [];
-        } else {
-            $courses = $assignedTeacherRepository->getTeacherCourses($current_school_session_id, $teacher_id, $semester_id);
-        }
-        
-        $data = [
-            'courses'               => $courses,
-            'semesters'             => $semesters,
-            'selected_semester_id'  => $semester_id,
-        ];
-
-        return view('courses.teacher', $data);
     }
 
     /**
@@ -80,14 +87,14 @@ class AssignedTeacherController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  TeacherAssignRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TeacherAssignRequest $request)
     {
